@@ -2,10 +2,10 @@ package com.geeks.pixabay
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Adapter
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.geeks.pixabay.databinding.ActivityMainBinding
+import com.geeks.pixabay.service.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

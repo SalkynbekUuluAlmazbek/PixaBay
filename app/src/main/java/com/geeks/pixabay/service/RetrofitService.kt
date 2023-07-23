@@ -1,5 +1,6 @@
-package com.geeks.pixabay
+package com.geeks.pixabay.service
 
+import com.geeks.pixabay.model.PixaApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
