@@ -24,10 +24,15 @@ class MainActivity : AppCompatActivity() {
         initClicker()
     }
 
+    private fun resetPage() {
+        page = 1
+    }
+
     private fun initClicker() {
         with(binding) {
             buttonSearch.setOnClickListener {
                 getImage()
+                resetPage()
             }
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -42,24 +47,25 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
-                    private fun ActivityMainBinding.getImage() {
-                RetrofitService.api.getPictures(editTextWord.text.toString(), Page = page)
-                    .enqueue(object : Callback<PixaModel> {
-                        override fun onResponse(
-                            call: Call<PixaModel>,
-                            response: Response<PixaModel>
-                        ) {
-                            if (response.isSuccessful)
-                                recyclerView.adapter = adapter
-                            adapter.list.clear()
-                            adapter.list.addAll(response.body()?.hits!!)
 
-                        }
+    private fun ActivityMainBinding.getImage() {
+        RetrofitService.api.getPictures(editTextWord.text.toString(), Page = page)
+            .enqueue(object : Callback<PixaModel> {
+                override fun onResponse(
+                    call: Call<PixaModel>,
+                    response: Response<PixaModel>
+                ) {
+                    if (response.isSuccessful)
+                        recyclerView.adapter = adapter
+                    adapter.list.clear()
+                    adapter.list.addAll(response.body()?.hits!!)
 
-                        override fun onFailure(call: Call<PixaModel>, t: Throwable) {
-                            Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
-                        }
+                }
 
-                    })
-            }
-        }
+                override fun onFailure(call: Call<PixaModel>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
+                }
+
+            })
+    }
+}
